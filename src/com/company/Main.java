@@ -1,9 +1,8 @@
 package com.company;
 
-import com.company.FileAnalysis.FileAnalyzer;
+import com.company.fileAnalysis.FileAnalyzer;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
