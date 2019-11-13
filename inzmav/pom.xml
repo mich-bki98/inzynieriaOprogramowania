@@ -7,6 +7,13 @@
     <groupId>inzmav</groupId>
     <artifactId>inzmav</artifactId>
     <version>1.0-SNAPSHOT</version>
+<dependencies>
+    <dependency>
+        <groupId>guru.nidi</groupId>
+        <artifactId>graphviz-java</artifactId>
+        <version>0.11.2</version>
+    </dependency>
+</dependencies>
 
 
 </project>
