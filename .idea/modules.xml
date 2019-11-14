@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/inzmav/inzmav.iml" filepath="$PROJECT_DIR$/inzmav/inzmav.iml" />
       <module fileurl="file://$PROJECT_DIR$/inzynieriaOprogramowania.iml" filepath="$PROJECT_DIR$/inzynieriaOprogramowania.iml" />
     </modules>
   </component>
