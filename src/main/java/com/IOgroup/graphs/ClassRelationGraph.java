@@ -32,7 +32,7 @@ public class ClassRelationGraph {  //https://github.com/nidi3/graphviz-java#comp
             for(Map.Entry<String, Integer> oneFile : file.getDependencyMap().entrySet() ){
                 //Map.Entry oraz .entrySet() traktuje K i V jako jedną klasę dzięki czemu iterowanie jest prostsze
                 //Z każdego pliku file wyciągamy jego dependency mapę i z niej wyciągamy każdą zależność ( jedna dependency mapa ma kilka zależności)
-                String newNodeName = oneFile.getKey() + ".java";
+                String newNodeName = oneFile.getKey() ;//+ ".java"; <-------- NA HUJ TO JA SIE PYTAM XDDDD
                 toNodes.add(to(node(newNodeName)).with(Label.of(oneFile.getValue().toString())));  //do listy dodajemy węzły połączone z naszym źródłem
             }
             mainNodes.add(mainNode.link(toNodes));
