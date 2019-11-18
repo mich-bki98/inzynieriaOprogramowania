@@ -1,6 +1,7 @@
 package com.IOgroup;
 
 
+import com.IOgroup.exceptions.NoFilesException;
 import com.IOgroup.fileAnalysis.FileAnalyzer;
 import com.IOgroup.graphs.ClassRelationGraph;
 import com.IOgroup.model.FileDetails;
@@ -18,12 +19,17 @@ public class Main {
         crelGraph.createClassRelationGraph(filesList);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoFilesException {
         List<Path> files;
         files = FileAnalyzer.getFilesList();
+        if(files == null){
+            throw new NoFilesException("No valid files found in working direction!" );
+        }
+
         FileAnalyzer.getFileNames(files);
 
         List<FileDetails> filesList = new ArrayList<>();
+
         try {
             filesList = FileAnalyzer.analyzeList(files);
         } catch (IOException e) {
