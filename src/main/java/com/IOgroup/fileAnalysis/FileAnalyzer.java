@@ -2,7 +2,6 @@ package com.IOgroup.fileAnalysis;
 
 import com.IOgroup.model.FileDetails;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,9 +14,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileAnalyzer {
-    private static List<String> filesList = new ArrayList<>();
+    public static List<String> filesList = new ArrayList<>();
 
-    /** przechodzenie katalogu roboczego w poszukiwaniu plików klas**/
+    /**
+     * przechodzenie katalogu roboczego w poszukiwaniu plików klas
+     **/
 
     public static List<Path> getFilesList() {
         try {
@@ -33,7 +34,9 @@ public class FileAnalyzer {
         }
     }
 
-    /** dodawanie sformatowanej nazwy pliku do listy nazw */
+    /**
+     * dodawanie sformatowanej nazwy pliku do listy nazw
+     */
 
     public static void getFileNames(List<Path> list) {
         String name;
@@ -44,27 +47,31 @@ public class FileAnalyzer {
         }
     }
 
-    /** tworzenie listy plików fileDetails i uzupełnianie jej przetworzonymi informacjami */
+    /**
+     * tworzenie listy plików fileDetails i uzupełnianie jej przetworzonymi informacjami
+     */
 
     public static List<FileDetails> analyzeList(List<Path> pathList) throws IOException {
 
         List<FileDetails> analyzedList = new ArrayList<>();
         String[] str;
-        String name,content;
+        String name, content;
         Long size;
 
-        for(Path path : pathList){
-            name=path.getFileName().toString();
-            str=name.split("\\.",2);
-            size=Files.size(path);
-            content= Files.readString(path);
-            FileDetails fileDetails=new FileDetails(str[0],size,content);
+        for (Path path : pathList) {
+            name = path.getFileName().toString();
+            str = name.split("\\.", 2);
+            size = Files.size(path);
+            content = Files.readString(path);
+            FileDetails fileDetails = new FileDetails(str[0], size, content);
             analyzedList.add(fileDetails);
         }
         return analyzedList;
     }
 
-    /** sprawdzanie pola content z każdego obiektu w celu znalezienia odniesien do pozostałych plików*/
+    /**
+     * sprawdzanie pola content z każdego obiektu w celu znalezienia odniesien do pozostałych plików
+     */
 
     public static void analyzeDependencies(List<FileDetails> fileDetailsList) {
 
@@ -90,7 +97,7 @@ public class FileAnalyzer {
                     dependenciesMap.put(lookedFor, k);
                 }
             }
-            fileDetailsList.get(i).setDependencyMap(dependenciesMap);
+            fileDetailsList.get(i).setClassDependencyMap(dependenciesMap);
         }
     }
 }

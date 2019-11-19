@@ -6,10 +6,10 @@ public class FileDetails {
     private String name;
     private String content;
     private double weight;
-    private HashMap<String,Integer> dependencyMap;
+    private HashMap<String, Integer> classDependencyMap;
 
-    public void setDependencyMap(HashMap<String, Integer> dependencyMap) {
-        this.dependencyMap = dependencyMap;
+    public void setClassDependencyMap(HashMap<String, Integer> classDependencyMap) {
+        this.classDependencyMap = classDependencyMap;
     }
 
     public String getContent() {
@@ -30,8 +30,8 @@ public class FileDetails {
         return weight;
     }
 
-    public HashMap<String, Integer> getDependencyMap() {
-        return dependencyMap;
+    public HashMap<String, Integer> getClassDependencyMap() {
+        return classDependencyMap;
     }
 
 }

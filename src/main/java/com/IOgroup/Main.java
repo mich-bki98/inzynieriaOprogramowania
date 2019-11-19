@@ -3,8 +3,10 @@ package com.IOgroup;
 
 import com.IOgroup.exceptions.NoFilesException;
 import com.IOgroup.fileAnalysis.FileAnalyzer;
+import com.IOgroup.fileAnalysis.LogicAnalyzer;
 import com.IOgroup.graphs.ClassRelationGraph;
 import com.IOgroup.model.FileDetails;
+import com.IOgroup.model.MethodDetails;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,16 +30,19 @@ public class Main {
 
         FileAnalyzer.getFileNames(files);
 
-        List<FileDetails> filesList = new ArrayList<>();
+        List<FileDetails> fileDetailsList = new ArrayList<>();
 
         try {
-            filesList = FileAnalyzer.analyzeList(files);
+            fileDetailsList = FileAnalyzer.analyzeList(files);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        FileAnalyzer.analyzeDependencies(filesList);
-        generateGraphs(filesList);
+        FileAnalyzer.analyzeDependencies(fileDetailsList);
+        generateGraphs(fileDetailsList);
+
+        //List<MethodDetails> methodDetailsList = new ArrayList<>();
+        //methodDetailsList = LogicAnalyzer.getMethodList(fileDetailsList);
 
     }
 }
