@@ -1,5 +1,6 @@
 package com.IOgroup.graphs;
 import com.IOgroup.model.FileDetails;
+import com.IOgroup.model.MethodDetails;
 import guru.nidi.graphviz.attribute.Label;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.model.Graph;
@@ -16,7 +17,7 @@ import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
 import static guru.nidi.graphviz.model.Link.to;
 
-public class ClassRelationGraph {  //https://github.com/nidi3/graphviz-java#complex-example
+public class Graphs {  //https://github.com/nidi3/graphviz-java#complex-example
 
     public void createClassRelationGraph(List<FileDetails> filesList) throws IOException {
 
@@ -39,13 +40,41 @@ public class ClassRelationGraph {  //https://github.com/nidi3/graphviz-java#comp
         }
 
         Graph g = graph("example1").directed().with(mainNodes);
-        File resultFile = new File("graph.png");
+        File resultFile = new File("ClassRelationGraph.png");
         resultFile.createNewFile();
       try {
          fromGraph(g).render(Format.PNG).toFile(resultFile);
        } catch (IOException e) {
             e.printStackTrace();
        }
+
+    }
+
+    public void createMethodRelationGraph(List<MethodDetails> methodList) throws IOException {
+
+        List mainNodes = new ArrayList();
+        for(MethodDetails method : methodList) {
+
+            String nodeName = method.getMethodName();
+            int weight = method.getCallCounter();
+            Node mainNode = node(nodeName).with(Label.html("<b>" + nodeName + "</b><br/>" + weight));
+
+            List toNodes = new ArrayList();
+            for(Map.Entry<String, Integer> oneFile : method.getMethodDependencies().entrySet() ){
+                String newNodeName = oneFile.getKey() ;
+                toNodes.add(to(node(newNodeName)).with(Label.of(oneFile.getValue().toString())));
+            }
+            mainNodes.add(mainNode.link(toNodes));
+        }
+
+        Graph g = graph("example2").directed().with(mainNodes);
+        File resultFile = new File("MethodRelationGraph.png");
+        resultFile.createNewFile();
+        try {
+            fromGraph(g).render(Format.PNG).toFile(resultFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

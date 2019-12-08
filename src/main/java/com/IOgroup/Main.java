@@ -3,7 +3,7 @@ package com.IOgroup;
 import com.IOgroup.exceptions.NoFilesException;
 import com.IOgroup.fileAnalysis.FileAnalyzer;
 import com.IOgroup.fileAnalysis.LogicAnalyzer;
-import com.IOgroup.graphs.ClassRelationGraph;
+import com.IOgroup.graphs.Graphs;
 import com.IOgroup.model.FileDetails;
 import com.IOgroup.model.MethodDetails;
 
@@ -14,13 +14,17 @@ import java.util.List;
 
 public class Main {
 
-    private static void generateGraphs(List<FileDetails> filesList) throws IOException { //Tutaj będą wywołania funkcji rysowania grafów, na razie jest historyjka 1 więc tylko jeden graf
+    private static void generateGraphs(List<FileDetails> filesList,
+                                       List<MethodDetails> methodList) throws IOException { //Tutaj będą wywołania funkcji rysowania grafów, na razie jest historyjka 1 więc tylko jeden graf
 
-        ClassRelationGraph crelGraph = new ClassRelationGraph();
-        crelGraph.createClassRelationGraph(filesList);
+        Graphs graph = new Graphs();
+        graph.createClassRelationGraph(filesList);
+        graph.createMethodRelationGraph(methodList);
     }
 
     public static void main(String[] args) throws IOException, NoFilesException {
+
+
         List<Path> files;
         files = FileAnalyzer.getFilesList();
 
@@ -39,18 +43,22 @@ public class Main {
         }
 
         FileAnalyzer.analyzeDependencies(fileDetailsList);
-        generateGraphs(fileDetailsList);
+
 
 
         List<MethodDetails> methodDetails= LogicAnalyzer.findAllMethods(System.getProperty("user.dir"));
 
-        for(MethodDetails unit: methodDetails)
-        {
-            System.out.println(unit);
-        }
+       // for(MethodDetails unit: methodDetails)
+       // {
+        //    System.out.println(unit);
+       // }
 
         //List<MethodDetails> methodDetailsList = new ArrayList<>();
         //methodDetailsList = LogicAnalyzer.getMethodList(fileDetailsList);
 
+
+
+
+        generateGraphs(fileDetailsList, methodDetails);
     }
 }
