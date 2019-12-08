@@ -1,6 +1,5 @@
 package com.IOgroup;
 
-
 import com.IOgroup.exceptions.NoFilesException;
 import com.IOgroup.fileAnalysis.FileAnalyzer;
 import com.IOgroup.fileAnalysis.LogicAnalyzer;
@@ -24,6 +23,7 @@ public class Main {
     public static void main(String[] args) throws IOException, NoFilesException {
         List<Path> files;
         files = FileAnalyzer.getFilesList();
+
         if(files == null){
             throw new NoFilesException("No valid files found in working direction!" );
         }
@@ -40,6 +40,14 @@ public class Main {
 
         FileAnalyzer.analyzeDependencies(fileDetailsList);
         generateGraphs(fileDetailsList);
+
+
+        List<MethodDetails> methodDetails= LogicAnalyzer.findAllMethods(System.getProperty("user.dir"));
+
+        for(MethodDetails unit: methodDetails)
+        {
+            System.out.println(unit);
+        }
 
         //List<MethodDetails> methodDetailsList = new ArrayList<>();
         //methodDetailsList = LogicAnalyzer.getMethodList(fileDetailsList);

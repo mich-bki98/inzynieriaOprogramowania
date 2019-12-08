@@ -1,6 +1,7 @@
 package com.IOgroup.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MethodDetails {
     private String methodName;
@@ -36,6 +37,27 @@ public class MethodDetails {
 
     public void setMethodDependencies(HashMap<String, Integer> methodDependencies) {
         this.methodDependencies = methodDependencies;
+    }
+
+    @Override
+    public String toString() {
+
+        String temp="Hello! My name is: "+this.methodName+"\n";
+        temp+="I've been called "+ this.callCounter+ " times\n";
+
+        if(this.methodDependencies.isEmpty())
+        {
+            temp+="\n--------------------\n";
+            return  temp;
+        }
+        temp+="I've called these functions myself:\n";
+        for (Map.Entry<String, Integer> entry : this.methodDependencies.entrySet()) {
+            String k = entry.getKey();
+            Integer v = entry.getValue();
+            temp+="Function: " + k +",\t\t" + v +" times\n";
+        }
+        temp+="\n--------------------\n";
+        return temp;
     }
 
 }
