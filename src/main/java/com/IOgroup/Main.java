@@ -3,9 +3,11 @@ package com.IOgroup;
 import com.IOgroup.exceptions.NoFilesException;
 import com.IOgroup.fileAnalysis.FileAnalyzer;
 import com.IOgroup.fileAnalysis.LogicAnalyzer;
+import com.IOgroup.fileAnalysis.PackageAnalyzer;
 import com.IOgroup.graphs.Graphs;
 import com.IOgroup.model.FileDetails;
 import com.IOgroup.model.MethodDetails;
+import com.IOgroup.model.PackageDetails;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,7 +17,9 @@ import java.util.List;
 public class Main {
 
     private static void generateGraphs(List<FileDetails> filesList,
-                                       List<MethodDetails> methodList) throws IOException { //Tutaj będą wywołania funkcji rysowania grafów, na razie jest historyjka 1 więc tylko jeden graf
+                                       List<MethodDetails> methodList) throws IOException {
+        //Tutaj będą wywołania funkcji rysowania grafów, na razie jest historyjka 1 więc tylko jeden graf
+        // juz kurwa nie
 
         Graphs graph = new Graphs();
         graph.createClassRelationGraph(filesList);
@@ -55,6 +59,11 @@ public class Main {
 
         //List<MethodDetails> methodDetailsList = new ArrayList<>();
         //methodDetailsList = LogicAnalyzer.getMethodList(fileDetailsList);
+
+        List<PackageDetails> packageDetailsList = PackageAnalyzer.findAllPackages();
+
+
+
 
 
 
