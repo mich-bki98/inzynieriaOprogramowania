@@ -26,7 +26,7 @@ public class GitVer {
                 if (name == null) {
                     throw new InvalidObjectException("Name equals null");
                 }
-                return "" + name.substring(7, 47);
+                return "" + name.substring(7);
 
             } catch (InvalidObjectException e) {
                 e.printStackTrace();

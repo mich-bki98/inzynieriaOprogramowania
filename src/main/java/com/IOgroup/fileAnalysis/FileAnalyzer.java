@@ -61,9 +61,12 @@ public class FileAnalyzer {
 
         for (Path path : pathList) {
             name = path.getFileName().toString();
-            str = name.split(File.separator + File.separator+".", 2);
+            str = name.split(File.separator
+                    + File.separator+".", 2); // dodałem crossplatformowośc wy windowsowskie śmiecie
             size = Files.size(path);
-            content = Files.readString(path);
+           content = new String(Files.readAllBytes(Paths.get(String.valueOf((path))))); // <- niech ktos sprawdzi czy to siedzi
+            // dla 8mki jak nie to odkomenyujcie ta nizej pzdro STASIEK!
+            //content = Files.readString(path);
             FileDetails fileDetails = new FileDetails(str[0], size, content);
             analyzedList.add(fileDetails);
         }
