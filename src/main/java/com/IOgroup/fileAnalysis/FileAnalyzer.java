@@ -2,6 +2,7 @@ package com.IOgroup.fileAnalysis;
 
 import com.IOgroup.model.FileDetails;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,7 +43,7 @@ public class FileAnalyzer {
         String name;
         for (Path path : list) {
             name = path.getFileName().toString();
-            String[] str = name.split("\\.", 2);
+            String[] str = name.split(File.separator + File.separator+".", 2);
             filesList.add(str[0]);
         }
     }
@@ -60,7 +61,7 @@ public class FileAnalyzer {
 
         for (Path path : pathList) {
             name = path.getFileName().toString();
-            str = name.split("\\.", 2);
+            str = name.split(File.separator + File.separator+".", 2);
             size = Files.size(path);
             content = Files.readString(path);
             FileDetails fileDetails = new FileDetails(str[0], size, content);
