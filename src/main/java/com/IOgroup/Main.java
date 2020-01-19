@@ -61,13 +61,6 @@ public class Main {
         //methodDetailsList = LogicAnalyzer.getMethodList(fileDetailsList);
 
         List<PackageDetails> packageDetailsList = PackageAnalyzer.findAllPackages();
-
-
-
-
-
-
-
         generateGraphs(fileDetailsList, methodDetails);
     }
 }

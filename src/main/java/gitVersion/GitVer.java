@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.InvalidObjectException;
 
-public class gitVer {
+public class GitVer {
 
     /**
      * Funkcja, ktora zwraca nuer comitu, musisz tego stringa wrzucic na graf, powodzonka <3
@@ -14,7 +14,7 @@ public class gitVer {
      * @return {@String} last comit number
      */
 
-    public String getGitVersion() {
+    public static String getGitVersion() {      //dodałem static (Grzegorz Bawęda), aby się dało z tego korzystać z każdego miejsca, oraz zmienilem nazwe klasy żeby byla duza litera, tak jak pan jezus nakazał
         String[] command = {"git", "log"};
         String name = " ";
         try {

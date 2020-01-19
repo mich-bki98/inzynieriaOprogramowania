@@ -1,7 +1,8 @@
 package com.IOgroup.graphs;
 import com.IOgroup.model.FileDetails;
 import com.IOgroup.model.MethodDetails;
-import guru.nidi.graphviz.attribute.Label;
+import gitVersion.GitVer;
+import guru.nidi.graphviz.attribute.*;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.Node;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static guru.nidi.graphviz.attribute.Rank.RankDir.LEFT_TO_RIGHT;
+import static guru.nidi.graphviz.attribute.Rank.RankDir.TOP_TO_BOTTOM;
 import static guru.nidi.graphviz.engine.Graphviz.fromGraph;
 import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
@@ -39,7 +42,13 @@ public class Graphs {  //https://github.com/nidi3/graphviz-java#complex-example
             mainNodes.add(mainNode.link(toNodes));
         }
 
-        Graph g = graph("example1").directed().with(mainNodes);
+        mainNodes.add(createVersionControlNode());  //dodaje maly kwadracik na grafie z numerem wersji kodu
+
+        Graph g = graph("example1")
+                .directed()
+                .graphAttr().with(Rank.dir(LEFT_TO_RIGHT))
+                .with(mainNodes);
+
         File resultFile = new File("ClassRelationGraph.png");
         resultFile.createNewFile();
       try {
@@ -67,7 +76,13 @@ public class Graphs {  //https://github.com/nidi3/graphviz-java#complex-example
             mainNodes.add(mainNode.link(toNodes));
         }
 
-        Graph g = graph("example2").directed().with(mainNodes);
+        mainNodes.add(createVersionControlNode());  //dodaje maly kwadracik na grafie z numerem wersji kodu
+
+        Graph g = graph("example2")
+                .directed()
+                .graphAttr().with(Rank.dir(LEFT_TO_RIGHT))
+                .with(mainNodes);
+
         File resultFile = new File("MethodRelationGraph.png");
         resultFile.createNewFile();
         try {
@@ -75,7 +90,17 @@ public class Graphs {  //https://github.com/nidi3/graphviz-java#complex-example
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public Node createVersionControlNode(){
+        String version = GitVer.getGitVersion();
+        Node vercontrol = node("Version_ID:").with(
+                Shape.RECTANGLE,
+                Style.FILLED,
+                Color.hsv(.7, .3, 1.0),
+                Label.html("<b>" + "Version_ID: " + "</b><br/>" + version)
+        );
+        return vercontrol;
     }
 
 
