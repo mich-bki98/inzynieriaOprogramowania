@@ -30,12 +30,12 @@ public class GitVer {
 
             } catch (InvalidObjectException e) {
                 e.printStackTrace();
-                return "NIE PYKLO";
+                return "unknown";
             }
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        return "NIE PYKLO";
+        return "unknown";
     }
 }
 
