@@ -8,6 +8,8 @@ public class MethodDetails {
     private int callCounter;
     private HashMap<String, Integer> methodDependencies;
 
+    private String fileName;
+
     public int getCallCounter() {
         return callCounter;
     }
@@ -21,6 +23,14 @@ public class MethodDetails {
         this.methodName = methodName;
         this.callCounter = 0;
         this.methodDependencies = new HashMap<>();
+        this.fileName="";
+    }
+
+    public MethodDetails(String methodName, String fileName) {
+        this.methodName = methodName;
+        this.callCounter = 0;
+        this.methodDependencies = new HashMap<>();
+        this.fileName=fileName;
     }
 
     public String getMethodName() {
@@ -39,12 +49,20 @@ public class MethodDetails {
         this.methodDependencies = methodDependencies;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     @Override
     public String toString() {
 
         String temp="Hello! My name is: "+this.methodName+"\n";
         temp+="I've been called "+ this.callCounter+ " times\n";
-
+        temp+="I'm located in "+this.fileName+" file\n";
         if(this.methodDependencies.isEmpty())
         {
             temp+="\n--------------------\n";

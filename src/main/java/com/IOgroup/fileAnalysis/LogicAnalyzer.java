@@ -61,6 +61,11 @@ public class LogicAnalyzer {
         //Caly compilationUnit (cos na wzor klasy z całym opisem itd)
         for(Optional<CompilationUnit> compilationUnit: compilationUnitList)
         {
+            if(compilationUnit.isPresent()==false)
+            {
+                //Pozbywanie się pustych obiektow, zeby nie otrzymac NPE
+                continue;
+            }
             //Znajdz w tych klasach wszystkie deklaracje funkcji (rowniez z calym opisem i zmiennymi)
             for (TypeDeclaration typeDeclaration: compilationUnit.get().getTypes())
             {
@@ -71,8 +76,9 @@ public class LogicAnalyzer {
                     if(typeDeclaration.getMember(i).isMethodDeclaration())
                     {
                         //Zapisz do listy deklaracji i do listy MethodDetails
+                        //Konstruktor zapisuje rowniez w jakim pliku aktualnie jestesmy
                         methodDeclarationList.add((MethodDeclaration)typeDeclaration.getMember(i));
-                        methodDetailsList.add(new MethodDetails(((MethodDeclaration) typeDeclaration.getMember(i)).getNameAsString()));
+                        methodDetailsList.add(new MethodDetails(((MethodDeclaration) typeDeclaration.getMember(i)).getNameAsString(),typeDeclaration.getNameAsString()));
                     }
                 }
             }
@@ -83,13 +89,17 @@ public class LogicAnalyzer {
         {
             for(MethodDeclaration methodDeclaration: methodDeclarationList)
             {
-                //Znajdz wszystkie wywolania metody przekazanej przez lambde
+                //Znajdz wszystkie wywolania metody przekazanej przez lambde jako filtr
                 count=methodDeclaration.findAll(MethodCallExpr.class, function-> function.getName().asString().equals(methodDetails.getMethodName())).size();
 
+                //Jezeli rozne od 0 czyli ta metoda wywolala chociaz jedna inna metode to...
                 if(count!=0)
                 {
+                    //Znajdz na liscie te metode, zeby ustawic jej parametry
                     MethodDetails md=findMethodDetailsByMethodName(methodDetailsList,methodDeclaration.getNameAsString());
+                    //Wpisz do hashmapy nazwe metody wywolywanej przez nia oraz ilosc wywolan
                     md.getMethodDependencies().put(methodDetails.getMethodName(),count);
+                    //Znajdz te metode, ktora zostala wywolana i zwieksz jej ilosc wywolan o tyle ile razy zostala wywolana w innej metodzie
                     md=findMethodDetailsByMethodName(methodDetailsList,methodDetails.getMethodName());
                     md.setCallCounter(md.getCallCounter()+count);
                 }
@@ -110,7 +120,7 @@ public class LogicAnalyzer {
                 return value;
             }
         }
-        System.out.println("Nie znaleziono metody z taka nazwa");
+        System.err.println("Nie znaleziono metody z taka nazwa");
         return null;
     }
 
