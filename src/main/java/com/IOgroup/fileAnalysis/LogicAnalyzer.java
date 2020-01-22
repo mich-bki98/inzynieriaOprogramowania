@@ -119,7 +119,7 @@ public class LogicAnalyzer {
                 return value;
             }
         }
-        System.out.println("Nie znaleziono metody z taka nazwa");
+        System.err.println("Nie znaleziono metody z taka nazwa");
         return null;
     }
 

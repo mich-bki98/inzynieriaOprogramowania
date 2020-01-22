@@ -11,6 +11,8 @@ public class MethodDetails {
     private String className;
 
 
+    private String fileName;
+
     public int getCallCounter() {
         return callCounter;
     }
@@ -26,6 +28,14 @@ public class MethodDetails {
         this.methodDependencies = new HashMap<>();
         this.packageName = packageName;
         this.className = className;
+        this.fileName="";
+    }
+
+    public MethodDetails(String methodName, String fileName) {
+        this.methodName = methodName;
+        this.callCounter = 0;
+        this.methodDependencies = new HashMap<>();
+        this.fileName=fileName;
     }
 
     public String getMethodName() {
@@ -44,6 +54,14 @@ public class MethodDetails {
         this.methodDependencies = methodDependencies;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public String getPackageName() {
         return packageName;
     }
@@ -55,12 +73,13 @@ public class MethodDetails {
     @Override
     public String toString() {
 
-        String temp = "Hello! My name is: " + this.methodName + "\n";
-        temp += "I've been called " + this.callCounter + " times\n";
-
-        if (this.methodDependencies.isEmpty()) {
-            temp += "\n--------------------\n";
-            return temp;
+        String temp="Hello! My name is: "+this.methodName+"\n";
+        temp+="I've been called "+ this.callCounter+ " times\n";
+        temp+="I'm located in "+this.fileName+" file\n";
+        if(this.methodDependencies.isEmpty())
+        {
+            temp+="\n--------------------\n";
+            return  temp;
         }
         temp += "I've called these functions myself:\n";
         for (Map.Entry<String, Integer> entry : this.methodDependencies.entrySet()) {
