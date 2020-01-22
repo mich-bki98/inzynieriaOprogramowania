@@ -1,35 +1,42 @@
 package com.IOgroup.model;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PackageDetails {
-    private String packageName;
-    private int callCounter;
-    private HashMap<String, Integer> packageDependencies;
 
     public PackageDetails() {
     }
 
-    public PackageDetails(String packageName, int callCounter, HashMap<String, Integer> packageDependencies) {
+    private String packageName;
+    private int callCounter=0;
+    private HashMap<String, Integer> packageDependencies=new HashMap<>();
+    private HashMap<String, HashMap<String,Integer>> methodDependencies= new HashMap<>();
+    private List<FileDetails> classes=new ArrayList<>();
+    private Path pathToPackage;
+
+    public HashMap<String, HashMap<String,Integer>> getMethodDepedencies() {
+        return methodDependencies;
+    }
+
+
+    public void setMethodDependencies(HashMap<String,HashMap<String,Integer>> methodDepedencies) {
+        this.methodDependencies.putAll(methodDepedencies);
+    }
+
+    public PackageDetails(Path pathToPackage, String packageName) {
+        this.pathToPackage = pathToPackage;
         this.packageName = packageName;
-        this.callCounter = callCounter;
-        this.packageDependencies = packageDependencies;
+    }
+
+    public void addClass(FileDetails fileDetails){
+        this.classes.add(fileDetails);
     }
 
     public String getPackageName() {
         return packageName;
-    }
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
-
-    public int getCallCounter() {
-        return callCounter;
-    }
-
-    public void setCallCounter(int callCounter) {
-        this.callCounter = callCounter;
     }
 
     public HashMap<String, Integer> getPackageDependencies() {
@@ -39,4 +46,13 @@ public class PackageDetails {
     public void setPackageDependencies(HashMap<String, Integer> packageDependencies) {
         this.packageDependencies = packageDependencies;
     }
+
+    public Path getPathToPackage() {
+        return pathToPackage;
+    }
+
+    public void updateCallCounter(int packageCallCounter) {
+        this.callCounter+=packageCallCounter;
+    }
+
 }

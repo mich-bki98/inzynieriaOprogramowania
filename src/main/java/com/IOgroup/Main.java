@@ -1,13 +1,11 @@
 package com.IOgroup;
 
-import com.IOgroup.exceptions.NoFilesException;
 import com.IOgroup.fileAnalysis.FileAnalyzer;
 import com.IOgroup.fileAnalysis.LogicAnalyzer;
 import com.IOgroup.fileAnalysis.PackageAnalyzer;
 import com.IOgroup.graphs.Graphs;
 import com.IOgroup.model.FileDetails;
 import com.IOgroup.model.MethodDetails;
-import com.IOgroup.model.PackageDetails;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    public static List<FileDetails> fileDetailsList;
+    public static List<MethodDetails> methodDetailsList;
 
     private static void generateGraphs(List<FileDetails> filesList,
                                        List<MethodDetails> methodList) throws IOException {
@@ -26,19 +26,19 @@ public class Main {
         graph.createMethodRelationGraph(methodList);
     }
 
-    public static void main(String[] args) throws IOException, NoFilesException {
+    public static void main(String[] args) throws IOException{
 
 
         List<Path> files;
         files = FileAnalyzer.getFilesList();
 
         if(files == null){
-            throw new NoFilesException("No valid files found in working direction!" );
+            throw new IOException();
         }
 
         FileAnalyzer.getFileNames(files);
 
-        List<FileDetails> fileDetailsList = new ArrayList<>();
+        fileDetailsList = new ArrayList<>();
 
         try {
             fileDetailsList = FileAnalyzer.analyzeList(files);
@@ -48,9 +48,10 @@ public class Main {
 
         FileAnalyzer.analyzeDependencies(fileDetailsList);
 
-
-
         List<MethodDetails> methodDetails= LogicAnalyzer.findAllMethods(System.getProperty("user.dir"));
+        methodDetailsList=methodDetails;
+
+
 
        // for(MethodDetails unit: methodDetails)
        // {
@@ -60,7 +61,8 @@ public class Main {
         //List<MethodDetails> methodDetailsList = new ArrayList<>();
         //methodDetailsList = LogicAnalyzer.getMethodList(fileDetailsList);
 
-        List<PackageDetails> packageDetailsList = PackageAnalyzer.findAllPackages();
+        PackageAnalyzer.findAllPackages();
+
 
 
 
