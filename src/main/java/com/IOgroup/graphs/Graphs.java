@@ -1,7 +1,7 @@
 package com.IOgroup.graphs;
 import com.IOgroup.model.FileDetails;
 import com.IOgroup.model.MethodDetails;
-import gitVersion.GitVer;
+import com.IOgroup.gitVersion.GitVer;
 import guru.nidi.graphviz.attribute.*;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.model.Graph;
@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import static guru.nidi.graphviz.attribute.Rank.RankDir.LEFT_TO_RIGHT;
-import static guru.nidi.graphviz.attribute.Rank.RankDir.TOP_TO_BOTTOM;
 import static guru.nidi.graphviz.engine.Graphviz.fromGraph;
 import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;

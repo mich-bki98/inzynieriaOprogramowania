@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileAnalyzer {
-    public static List<String> filesList = new ArrayList<>();
+    private static List<String> filesList = new ArrayList<>();
 
     /**
      * przechodzenie katalogu roboczego w poszukiwaniu plików klas
@@ -43,7 +43,7 @@ public class FileAnalyzer {
         String name;
         for (Path path : list) {
             name = path.getFileName().toString();
-            String[] str = name.split(File.separator + File.separator+".", 2);
+            String[] str = name.split("\\.");
             filesList.add(str[0]);
         }
     }
@@ -61,8 +61,7 @@ public class FileAnalyzer {
 
         for (Path path : pathList) {
             name = path.getFileName().toString();
-            str = name.split(File.separator
-                    + File.separator+".", 2); // dodałem crossplatformowośc wy windowsowskie śmiecie
+            str = name.split("\\."); // dodałem crossplatformowośc wy windowsowskie śmiecie
             size = Files.size(path);
            content = new String(Files.readAllBytes(Paths.get(String.valueOf((path))))); // <- niech ktos sprawdzi czy to siedzi
             // dla 8mki jak nie to odkomenyujcie ta nizej pzdro STASIEK!

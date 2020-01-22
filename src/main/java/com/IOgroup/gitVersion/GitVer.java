@@ -1,4 +1,4 @@
-package gitVersion;
+package com.IOgroup.gitVersion;
 
 
 import java.io.BufferedReader;
@@ -16,7 +16,7 @@ public class GitVer {
 
     public static String getGitVersion() {      //dodałem static (Grzegorz Bawęda), aby się dało z tego korzystać z każdego miejsca, oraz zmienilem nazwe klasy żeby byla duza litera, tak jak pan jezus nakazał
         String[] command = {"git", "log"};
-        String name = " ";
+        String name;
         try {
             Process proc = Runtime.getRuntime().exec(command);
             BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));

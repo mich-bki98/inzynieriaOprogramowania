@@ -6,6 +6,7 @@ import com.IOgroup.fileAnalysis.PackageAnalyzer;
 import com.IOgroup.graphs.Graphs;
 import com.IOgroup.model.FileDetails;
 import com.IOgroup.model.MethodDetails;
+import com.IOgroup.model.PackageDetails;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -60,7 +61,7 @@ public class Main {
 
         //List<MethodDetails> methodDetailsList = new ArrayList<>();
         //methodDetailsList = LogicAnalyzer.getMethodList(fileDetailsList);
-
+        generateGraphs(fileDetailsList, methodDetails);
         PackageAnalyzer.findAllPackages();
 
 
