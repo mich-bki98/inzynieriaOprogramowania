@@ -1,8 +1,10 @@
 package com.IOgroup.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Objects;
 
-public class FileDetails {
+public class FileDetails implements Serializable {
     private String name;
     private String content;
     private double weight;
@@ -34,4 +36,17 @@ public class FileDetails {
         return classDependencyMap;
     }
 
+    //Przy sprawdzaniu obiektow klasy FileDetails porownujemy jedynie name czyli nazwe tej klasy
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FileDetails that = (FileDetails) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

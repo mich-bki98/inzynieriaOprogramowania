@@ -1,9 +1,11 @@
 package com.IOgroup.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class MethodDetails {
+public class MethodDetails implements Serializable {
     private String methodName;
     private int callCounter;
     private HashMap<String, Integer> methodDependencies;
@@ -98,4 +100,19 @@ public class MethodDetails {
         return temp;
     }
 
+
+    //Przy sprawdzaniu obiektow klasy MethodDetails porownujemy jedynie methodName i packageName
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MethodDetails that = (MethodDetails) o;
+        return Objects.equals(methodName, that.methodName) &&
+                Objects.equals(packageName, that.packageName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(methodName, packageName);
+    }
 }
