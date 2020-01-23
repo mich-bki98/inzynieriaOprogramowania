@@ -132,20 +132,13 @@ public class PackageAnalyzer {
             HashMap<String, Integer> tmpHashMap = new HashMap<>();
             while (it.hasNext()) {
 
-                //Adding callcounter, calculating and updating method dependencies
-                //method_of_A_Package -> B_package binding
+                //Calculating and updating method dependencies
                 //Dependencies set
                 Map.Entry pair = (Map.Entry) it.next();
                 if (!findPackageByFunctionName(pair.getKey().toString()).equals(packageDetailsTemp.getPackageName())) {
                     tmpHashMap.put(findPackageByFunctionName(pair.getKey().toString()), Integer.parseInt(pair.getValue().toString()));
                     methodDependencies.put(methodDetails.getMethodName(), tmpHashMap);
                 }
-
-                //Updating callcounter
-                if (packageDetailsTemp.getPackageName() != null)
-                    updatePackageCallCounter(Integer.parseInt(pair.getValue().toString()),
-                            findPackageByFunctionName(pair.getKey().toString()));
-
             }
             //Setting variables to data structure
             packageDetailsTemp.setMethodDependencies(methodDependencies);
@@ -170,6 +163,7 @@ public class PackageAnalyzer {
             incrementHashMapValueByKey(methodDetails.getMethodName() + "." + methodDetails.getCallCounter(),
                     methodDetails.getCallCounter(),
                     packageDetailsTmp.getThisMethods());
+                    packageDetailsTmp.updateCallCounter(methodDetails.getCallCounter());
         }
     }
 

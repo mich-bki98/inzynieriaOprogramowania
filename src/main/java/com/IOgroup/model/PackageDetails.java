@@ -27,6 +27,10 @@ public class PackageDetails {
     private HashMap<String, Integer> methodToThisPackage = new HashMap<>();
     private HashMap<String,Integer> thisMethods = new HashMap<>();
 
+    public void setCallCounter(int callCounter) {
+        this.callCounter = callCounter;
+    }
+
     public HashMap<String, Integer> getThisMethods() {
         return thisMethods;
     }
