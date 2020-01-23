@@ -1,6 +1,7 @@
 package com.IOgroup.model;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class FileDetails {
     private String name;
@@ -34,4 +35,17 @@ public class FileDetails {
         return classDependencyMap;
     }
 
+    //Przy sprawdzaniu obiektow klasy FileDetails porownujemy jedynie name czyli nazwe tej klasy
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FileDetails that = (FileDetails) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

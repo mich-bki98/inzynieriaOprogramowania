@@ -2,6 +2,7 @@ package com.IOgroup.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MethodDetails {
     private String methodName;
@@ -96,6 +97,21 @@ public class MethodDetails {
         }
         temp += "\n--------------------\n";
         return temp;
+    }
+
+    //Przy sprawdzaniu obiektow klasy MethodDetails porownujemy jedynie methodName i packageName
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MethodDetails that = (MethodDetails) o;
+        return Objects.equals(methodName, that.methodName) &&
+                Objects.equals(packageName, that.packageName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(methodName, packageName);
     }
 
 }
