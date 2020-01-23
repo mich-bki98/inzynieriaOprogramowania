@@ -43,7 +43,10 @@ public class Story5Controller {
         while(true){
 
             consolidation(files, methods, packages);
-            System.out.println("Zaladowano graf, odswiez plik aby zobaczyc zmiane");
+            System.out.println("Zaladowano graf, odswiez plik aby zobaczyc zmiane | false - warstwa wylaczona | true - warstwa wlaczana");
+            System.out.println("Warstwa plikow: " + files);
+            System.out.println("Warstwa metod: " + methods);
+            System.out.println("Warstwa pakietow: " + packages);
             System.out.println("Wpisujac odpowiednia cyfre mozesz wlaczac/wylaczac warstwy:");
             System.out.println("1. Warstwa relacji plikow");
             System.out.println("2. Warstwa relacji metod");

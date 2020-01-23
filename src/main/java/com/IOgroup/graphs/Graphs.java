@@ -113,11 +113,11 @@ public class Graphs {  //https://github.com/nidi3/graphviz-java#complex-example
            //         toNodes2.add(to(node(packageName)).with(Label.of(packag.getValue().toString())));
            //     }
            //     mainNodes.add(methodNode.link(toNodes2));
-           // }
-            for(Map.Entry<String, Integer> method : onePackage.getMethodToThisPackage().entrySet()){
+           // } przestarzała wersja
+            for(Map.Entry<String, Integer> method : onePackage.getThisMethods().entrySet()){
                 String methodName = method.getKey();
                 Node methodNode = node(methodName).with(Label.of(methodName));
-                mainNodes.add(methodNode.link(to(mainNode).with(Label.of(method.getValue().toString()))));
+                if(!method.getValue().toString().equals("0")) mainNodes.add(methodNode.link(to(mainNode).with(Label.of(method.getValue().toString()))));
             }
 
         }

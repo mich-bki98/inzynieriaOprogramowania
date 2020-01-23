@@ -160,7 +160,7 @@ public class PackageAnalyzer {
             for(PackageDetails packageDetails : packageDetailsList){
                 if(packageDetails.getPackageName().equals(methodDetails.getPackageName())) packageDetailsTmp=packageDetails;
             }
-            incrementHashMapValueByKey(methodDetails.getMethodName() + "." + methodDetails.getCallCounter(),
+            incrementHashMapValueByKey(methodDetails.getMethodName(),
                     methodDetails.getCallCounter(),
                     packageDetailsTmp.getThisMethods());
                     packageDetailsTmp.updateCallCounter(methodDetails.getCallCounter());
