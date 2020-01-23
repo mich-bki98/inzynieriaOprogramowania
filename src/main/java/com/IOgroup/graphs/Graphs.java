@@ -101,18 +101,25 @@ public class Graphs {  //https://github.com/nidi3/graphviz-java#complex-example
             }
             //tworzenie polaczen klasa-package (klasa pochodzi z package)
             mainNodes.add(mainNode.link(toNodes));
-            for (Map.Entry<String, HashMap<String, Integer>> method : onePackage.getMethodDepedencies().entrySet()) {
+
+            //for (Map.Entry<String, HashMap<String, Integer>> method : onePackage.getMethodDepedencies().entrySet()) {
+           //     String methodName = method.getKey();
+          //      Node methodNode = node(methodName).with(Label.of(methodName));
+           //     mainNodes.add(methodNode.link(to(mainNode).with(Label.of("x"))));
+          //      List toNodes2 = new ArrayList();
+                //wg. struktury ktora dostalem do uzytku: tworzenie polaczen klasa-package (klasa uzywa package)
+          //      for (Map.Entry<String, Integer> packag : method.getValue().entrySet()) {
+           //         String packageName = packag.getKey();
+           //         toNodes2.add(to(node(packageName)).with(Label.of(packag.getValue().toString())));
+           //     }
+           //     mainNodes.add(methodNode.link(toNodes2));
+           // }
+            for(Map.Entry<String, Integer> method : onePackage.getMethodToThisPackage().entrySet()){
                 String methodName = method.getKey();
                 Node methodNode = node(methodName).with(Label.of(methodName));
-                mainNodes.add(methodNode.link(to(mainNode).with(Label.of("x"))));
-                List toNodes2 = new ArrayList();
-                //wg. struktury ktora dostalem do uzytku: tworzenie polaczen klasa-package (klasa uzywa package)
-                for (Map.Entry<String, Integer> packag : method.getValue().entrySet()) {
-                    String packageName = packag.getKey();
-                    toNodes2.add(to(node(packageName)).with(Label.of(packag.getValue().toString())));
-                }
-                mainNodes.add(methodNode.link(toNodes2));
+                mainNodes.add(methodNode.link(to(mainNode).with(Label.of(method.getValue().toString()))));
             }
+
         }
         return mainNodes;
     }
