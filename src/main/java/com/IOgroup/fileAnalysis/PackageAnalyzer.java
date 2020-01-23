@@ -61,7 +61,7 @@ public class PackageAnalyzer {
         }
         bindClassesToPackages();
         calculatePackagesMethods();
-    }
+   }
 
     private static void bindClassesToPackages() throws IOException {
 
