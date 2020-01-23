@@ -60,6 +60,7 @@ public class PackageAnalyzer {
 
         }
         bindClassesToPackages();
+        calculatePackagesMethods();
     }
 
     private static void bindClassesToPackages() throws IOException {
@@ -156,6 +157,19 @@ public class PackageAnalyzer {
         if (!hashMap.containsKey(key)) hashMap.put(key, val);
         else {
             hashMap.put(key, hashMap.get(key) + val);
+        }
+    }
+
+    private static void calculatePackagesMethods(){
+        HashMap<String,Integer> tmpHash = new HashMap<>();
+        PackageDetails packageDetailsTmp = new PackageDetails();
+        for(MethodDetails methodDetails : methodDetailsList){
+            for(PackageDetails packageDetails : packageDetailsList){
+                if(packageDetails.getPackageName().equals(methodDetails.getPackageName())) packageDetailsTmp=packageDetails;
+            }
+            incrementHashMapValueByKey(methodDetails.getMethodName() + "." + methodDetails.getCallCounter(),
+                    methodDetails.getCallCounter(),
+                    packageDetailsTmp.getThisMethods());
         }
     }
 

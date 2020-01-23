@@ -20,6 +20,15 @@ public class PackageDetails {
     private HashMap<String, Integer> packageDependencies=new HashMap<>();
     private HashMap<String, HashMap<String,Integer>> methodDependencies= new HashMap<>();
     private HashMap<String, Integer> methodToThisPackage = new HashMap<>();
+    private HashMap<String,Integer> thisMethods = new HashMap<>();
+
+    public HashMap<String, Integer> getThisMethods() {
+        return thisMethods;
+    }
+
+    public void setThisMethods(HashMap<String, Integer> thisMethods) {
+        this.thisMethods = thisMethods;
+    }
 
     public void setMethodToThisPackage(HashMap<String, Integer> methodToThisPackage) {
         this.methodToThisPackage = methodToThisPackage;
