@@ -49,6 +49,7 @@ public class LogicAnalyzer {
         String packageName;
         String[] temporary;
         String className;
+        String fileName;
 
 
         try {
@@ -65,6 +66,21 @@ public class LogicAnalyzer {
 
         //Caly compilationUnit (cos na wzor klasy z całym opisem itd)
         for (Optional<CompilationUnit> compilationUnit : compilationUnitList) {
+
+            //API 11+
+            // if(compilationUnit.isEmpty())
+//            {
+//                //Element pusty. Nie sprawdzamy dalej dla niego, zeby nie otrzymac NPE
+//                continue;
+//            }
+
+            if(!compilationUnit.isPresent())
+            {
+                //Element pusty. Nie sprawdzamy dalej dla niego, zeby nie otrzymac NPE
+                continue;
+            }
+
+
             //Znajdz w tych klasach wszystkie deklaracje funkcji (rowniez z calym opisem i zmiennymi)
             for (TypeDeclaration typeDeclaration : compilationUnit.get().getTypes()) {
                 //Sprawdzaj dla kazdej czy...
@@ -72,34 +88,31 @@ public class LogicAnalyzer {
                     //... jest deklaracja metody
                     if (typeDeclaration.getMember(i).isMethodDeclaration()) {
 
-
                          //if its method get which package is it in.
-
                         packageName = compilationUnit.get().getPackageDeclaration().toString();
                         temporary = packageName.split("\\.");
                         packageName = temporary[temporary.length - 1];
                         packageName = packageName.split(";")[0];
                         className = compilationUnit.get().getStorage().get().getFileName().split("\\.")[0];
 
-
-
+                        //Lub fileName=typeDeclaration.getNameAsString();
+                        fileName=compilationUnit.get().getStorage().get().getFileName().toString();
                         //Zapisz do listy deklaracji i do listy MethodDetails
                         methodDeclarationList.add((MethodDeclaration) typeDeclaration.getMember(i));
-                        methodDetailsList.add(new MethodDetails(((MethodDeclaration) typeDeclaration.getMember(i)).getNameAsString(), packageName,className));
+                        methodDetailsList.add(new MethodDetails(((MethodDeclaration) typeDeclaration.getMember(i)).getNameAsString(), packageName,className, fileName));
                     }
                 }
             }
         }
 
-        //Iteracja po wszystkich elementach obydwu list- deklaracji i MethodDetails. Zliczanie ile zadana funkcja wywolala inna funkcje.
         for (MethodDetails methodDetails : methodDetailsList) {
             for (MethodDeclaration methodDeclaration : methodDeclarationList) {
-                //Znajdz wszystkie wywolania metody przekazanej przez lambde
                 count = methodDeclaration.findAll(MethodCallExpr.class, function -> function.getName().asString().equals(methodDetails.getMethodName())).size();
 
                 if (count != 0) {
                     MethodDetails md = findMethodDetailsByMethodName(methodDetailsList, methodDeclaration.getNameAsString());
                     md.getMethodDependencies().put(methodDetails.getMethodName(), count);
+
                     md = findMethodDetailsByMethodName(methodDetailsList, methodDetails.getMethodName());
                     md.setCallCounter(md.getCallCounter() + count);
                 }

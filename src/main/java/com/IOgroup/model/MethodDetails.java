@@ -9,8 +9,6 @@ public class MethodDetails {
     private HashMap<String, Integer> methodDependencies;
     private String packageName;
     private String className;
-
-
     private String fileName;
 
     public int getCallCounter() {
@@ -28,14 +26,15 @@ public class MethodDetails {
         this.methodDependencies = new HashMap<>();
         this.packageName = packageName;
         this.className = className;
-        this.fileName="";
     }
 
-    public MethodDetails(String methodName, String fileName) {
+    public MethodDetails(String methodName,String packageName,String className, String fileName) {
         this.methodName = methodName;
         this.callCounter = 0;
         this.methodDependencies = new HashMap<>();
-        this.fileName=fileName;
+        this.packageName = packageName;
+        this.className = className;
+        this.fileName= fileName;
     }
 
     public String getMethodName() {
@@ -54,6 +53,14 @@ public class MethodDetails {
         this.methodDependencies = methodDependencies;
     }
 
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
     public String getFileName() {
         return fileName;
     }
@@ -62,12 +69,12 @@ public class MethodDetails {
         this.fileName = fileName;
     }
 
-    public String getPackageName() {
-        return packageName;
+    public String getClassName() {
+        return className;
     }
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     @Override
