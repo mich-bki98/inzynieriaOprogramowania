@@ -27,6 +27,7 @@ public class Main {
         graph.createClassRelationGraph(filesList);
         graph.createMethodRelationGraph(methodList);
         graph.createPackageRelationGraph(packageDetails);
+        graph.createFunctionToFileRelationGraph(methodList);
     }
 
     public static void main(String[] args) throws IOException{

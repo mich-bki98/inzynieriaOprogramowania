@@ -128,4 +128,29 @@ public class Graphs {  //https://github.com/nidi3/graphviz-java#complex-example
         mainNodes.add(vercontrol);
         return mainNodes;
     }
+
+
+    public void createFunctionToFileRelationGraph(List<MethodDetails> methodList) throws IOException {
+
+        List mainNodes = new ArrayList();
+        for(MethodDetails method : methodList) {
+            String nodeName = method.getMethodName();
+            for(MethodDetails checkForSameName : methodList){ //różne funkcje mogą nazywać się tak samo w różnych plikach, chcę to oddzielić
+                if (checkForSameName == method) break; //jezeli sprawdzamy ten sam obiekt, to zostawiamy go w spokoju
+                if(checkForSameName.getMethodName().equals(nodeName)) nodeName = nodeName + " "; //dodajemy white-space aby nazwa sie roznila
+            }
+            Node mainNode = node(nodeName).with(Label.html("<b>" + nodeName + "</b>"));
+
+            String fileName = method.getFileName();
+            List toNodes = new ArrayList();
+            toNodes.add(to(node(fileName)).with(Color.PINK));
+            mainNodes.add(mainNode.link(toNodes));
+        }
+
+        Graph g = graph("FunctionToFileRelationGraph").directed().graphAttr().with(Rank.dir(LEFT_TO_RIGHT)).with(mainNodes);
+        File resultFile = new File("FunctionToFileRelationGraph.png");
+        resultFile.createNewFile();
+        try { fromGraph(g).render(Format.PNG).toFile(resultFile); } catch (IOException e) { e.printStackTrace(); }
+
+    }
 }
