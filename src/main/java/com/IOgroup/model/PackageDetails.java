@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class PackageDetails {
 
@@ -84,4 +85,18 @@ public class PackageDetails {
         this.callCounter+=packageCallCounter;
     }
 
+    //Przy sprawdzaniu obiektow klasy PackageDetails porownujemy jedynie packageName i pathToPackage
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PackageDetails that = (PackageDetails) o;
+        return Objects.equals(packageName, that.packageName) &&
+                Objects.equals(pathToPackage, that.pathToPackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(packageName, pathToPackage);
+    }
 }
