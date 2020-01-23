@@ -19,6 +19,11 @@ public class PackageDetails {
     private int callCounter=0;
     private HashMap<String, Integer> packageDependencies=new HashMap<>();
     private HashMap<String, HashMap<String,Integer>> methodDependencies= new HashMap<>();
+
+    public HashMap<String, Integer> getMethodToThisPackage() {
+        return methodToThisPackage;
+    }
+
     private HashMap<String, Integer> methodToThisPackage = new HashMap<>();
 
     public void setMethodToThisPackage(HashMap<String, Integer> methodToThisPackage) {
