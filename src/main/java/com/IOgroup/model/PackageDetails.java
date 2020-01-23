@@ -11,6 +11,11 @@ public class PackageDetails {
     }
 
     private String packageName;
+
+    public int getCallCounter() {
+        return callCounter;
+    }
+
     private int callCounter=0;
     private HashMap<String, Integer> packageDependencies=new HashMap<>();
     private HashMap<String, HashMap<String,Integer>> methodDependencies= new HashMap<>();

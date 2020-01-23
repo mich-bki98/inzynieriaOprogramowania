@@ -16,8 +16,13 @@ import static com.IOgroup.Main.fileDetailsList;
 import static com.IOgroup.Main.methodDetailsList;
 
 public class PackageAnalyzer {
+
     private static List<PackageDetails> packageDetailsList = new ArrayList<>();
     private static File file;
+
+    public static List<PackageDetails> getPackageDetailsList() {
+        return packageDetailsList;
+    }
 
     public static void findAllPackages() throws IOException {
 
