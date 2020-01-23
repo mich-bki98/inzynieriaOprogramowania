@@ -112,7 +112,7 @@ public class PackageAnalyzer {
 
         for (MethodDetails methodDetails : methodDetailsList) {
 
-             //Setting temporary var to specific package
+            //Setting temporary var to specific package
 
             int packageCallCounter = 0;
             HashMap<String, HashMap<String, Integer>> methodDependencies = new HashMap<>();
@@ -133,15 +133,20 @@ public class PackageAnalyzer {
 
                 //Adding callcounter, calculating and updating method dependencies
                 //method_of_A_Package -> B_package binding
-
+                //Dependencies set
                 Map.Entry pair = (Map.Entry) it.next();
-                tmpHashMap.put(findPackageByFunctionName(pair.getKey().toString()), Integer.parseInt(pair.getValue().toString()));
-                methodDependencies.put(methodDetails.getMethodName(), tmpHashMap);
+                if (!findPackageByFunctionName(pair.getKey().toString()).equals(packageDetailsTemp.getPackageName())) {
+                    tmpHashMap.put(findPackageByFunctionName(pair.getKey().toString()), Integer.parseInt(pair.getValue().toString()));
+                    methodDependencies.put(methodDetails.getMethodName(), tmpHashMap);
+                }
+
+                //Updating callcounter
                 if (packageDetailsTemp.getPackageName() != null)
                     updatePackageCallCounter(Integer.parseInt(pair.getValue().toString()),
                             findPackageByFunctionName(pair.getKey().toString()));
 
             }
+            //Setting variables to data structure
             packageDetailsTemp.setMethodDependencies(methodDependencies);
             packageDetailsTemp.updateCallCounter(packageCallCounter);
         }
@@ -157,6 +162,7 @@ public class PackageAnalyzer {
     private static void bindPackageToPackage() {
         for (PackageDetails packageDetails : packageDetailsList) {
             HashMap<String, Integer> tmpHash = new HashMap<>();
+            HashMap<String, Integer> tmpHash2 = new HashMap<>();
             Iterator it;
             it = packageDetails.getMethodDepedencies().entrySet().iterator();
             while (it.hasNext()) {
@@ -168,11 +174,14 @@ public class PackageAnalyzer {
                     Map.Entry pairInt = (Map.Entry) interIt.next();
                     if (pairInt.getKey().toString().equals(packageDetails.getPackageName())) continue;
                     incrementHashMapValueByKey(pairInt.getKey().toString(), Integer.parseInt(pairInt.getValue().toString()), tmpHash);
+                    incrementHashMapValueByKey(pair.getKey().toString(),Integer.parseInt(pairInt.getValue().toString()),tmpHash2);
                 }
             }
             packageDetails.setPackageDependencies(tmpHash);
+            packageDetails.setMethodToThisPackage(tmpHash2);
         }
     }
+
 }
 
 
